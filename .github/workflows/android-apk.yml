@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
@@ -36,7 +36,7 @@ jobs:
           if [ -f package.json ]; then
             echo "created=false" >> "$GITHUB_OUTPUT"
           else
-            bash scripts/bootstrap.sh
+            bash scripts/ci-run.sh bootstrap bash scripts/bootstrap.sh
             echo "created=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -51,15 +51,15 @@ jobs:
 
       - name: Install dependencies
         if: steps.bootstrap.outputs.created == 'false'
-        run: npm ci
+        run: bash scripts/ci-run.sh npm-ci npm ci
 
       - name: Generate native Android project
-        run: npx expo prebuild --platform android --no-install
+        run: bash scripts/ci-run.sh prebuild npx expo prebuild --platform android --no-install
 
       - name: Build release APK
         working-directory: android
         # arm64 only: every Android phone from the last ~8 years, and a much faster build.
-        run: ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
+        run: bash ../scripts/ci-run.sh gradle ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
 
       - name: Publish APK as a GitHub release
         env:

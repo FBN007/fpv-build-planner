@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "FPV Build Planner",
+    "slug": "fpv-build-planner",
+    "scheme": "fpvbuild",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#1A1D21",
+    "ios": {
+      "supportsTablet": true
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "com.fpvbuildplanner.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#1A1D21"
+      }
+    }
+  }
+}

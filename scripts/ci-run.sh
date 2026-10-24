@@ -11,7 +11,10 @@ if [ "$code" -ne 0 ]; then
   sed 's/\x1b\[[0-9;]*m//g' "$log" > "$clean"
   # Real errors first (compiler errors, Gradle "What went wrong"), then the tail.
   {
-    grep -nE '^e: |error:|ERROR|What went wrong|Execution failed|Could not|FAILURE|Caused by|Unresolved reference|> Task .* FAILED' "$clean" | grep -v '^[0-9]*:w: ' | head -n 30
+    first=$(grep -nE 'ERROR|Error:|error:' "$clean" | grep -v ':w: ' | head -n1 | cut -d: -f1)
+    if [ -n "$first" ]; then sed -n "$((first>8?first-8:1)),$((first+25))p" "$clean"; fi
+    echo "----- matches -----"
+    grep -nE '^e: |error:|ERROR|What went wrong|Execution failed|Could not|FAILURE|Caused by|Unresolved reference|> Task .* FAILED' "$clean" | grep -v '^[0-9]*:w: ' | head -n 15
     echo "----- tail -----"
     grep -v '^w: ' "$clean" | tail -n 25
   } | cut -c1-400 > "$log.report"

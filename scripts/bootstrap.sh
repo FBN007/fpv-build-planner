@@ -24,7 +24,7 @@ npx expo install expo-router expo-linking expo-constants expo-status-bar expo-sy
   react-native-safe-area-context react-native-screens \
   @react-native-async-storage/async-storage \
   expo-font @expo-google-fonts/barlow-semi-condensed @expo/vector-icons \
-  nativewind@^4.2.7 react-native-reanimated react-native-worklets zustand
+  nativewind@^4.2.7 react-native-reanimated react-native-worklets zustand babel-preset-expo
 npm install --save-dev tailwindcss@^3.4.17
 
 rm -rf "$TMP"

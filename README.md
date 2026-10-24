@@ -18,7 +18,7 @@ npx expo install expo-router expo-linking expo-constants expo-status-bar expo-sy
   expo-font @expo-google-fonts/barlow-semi-condensed @expo/vector-icons
 
 # 3. Styling (NativeWind v4 is the stable line; v5 is still a release candidate)
-npx expo install nativewind@^4.2.7 react-native-reanimated react-native-worklets
+npx expo install nativewind@^4.2.7 react-native-reanimated react-native-worklets babel-preset-expo
 npm install --save-dev tailwindcss@^3.4.17
 
 # 4. State

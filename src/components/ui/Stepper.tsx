@@ -18,17 +18,37 @@ export function Stepper({ label, value, onChange, min = 0, max = 99 }: Props) {
     <View className="gap-2">
       <Text className="text-sm text-muted">{label}</Text>
       <View className="flex-row items-center self-start rounded-xl border border-line bg-raised">
-        <StepButton icon="minus" label={`Fewer ${label.toLowerCase()}`} disabled={value <= min} onPress={() => onChange(value - 1)} />
+        <StepButton
+          icon="minus"
+          label={`Fewer ${label.toLowerCase()}`}
+          disabled={value <= min}
+          onPress={() => onChange(value - 1)}
+        />
         <Text className="w-12 text-center font-display text-xl text-ink" accessibilityLiveRegion="polite">
           {value}
         </Text>
-        <StepButton icon="plus" label={`More ${label.toLowerCase()}`} disabled={value >= max} onPress={() => onChange(value + 1)} />
+        <StepButton
+          icon="plus"
+          label={`More ${label.toLowerCase()}`}
+          disabled={value >= max}
+          onPress={() => onChange(value + 1)}
+        />
       </View>
     </View>
   );
 }
 
-function StepButton({ icon, label, disabled, onPress }: { icon: IconName; label: string; disabled: boolean; onPress: () => void }) {
+function StepButton({
+  icon,
+  label,
+  disabled,
+  onPress,
+}: {
+  icon: IconName;
+  label: string;
+  disabled: boolean;
+  onPress: () => void;
+}) {
   return (
     <Pressable
       accessibilityRole="button"

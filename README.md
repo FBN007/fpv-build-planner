@@ -22,7 +22,7 @@ npx expo install nativewind@^4.2.7 react-native-reanimated react-native-worklets
 npm install --save-dev tailwindcss@^3.4.17
 
 # 4. State
-npx expo install zustand
+npx expo install zustand react-native-keyboard-controller
 ```
 
 Then:

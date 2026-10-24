@@ -27,8 +27,15 @@ export function PhaseProgress({ phases }: Props) {
         const ratio = phase.total === 0 ? 0 : phase.done / phase.total;
         const complete = phase.total > 0 && phase.done === phase.total;
         return (
-          <View key={phase.id} style={{ flex: Math.max(phase.total, 1) }} className="h-1.5 overflow-hidden rounded-full bg-raised">
-            <View style={{ width: `${ratio * 100}%` }} className={cn('h-full rounded-full', complete ? 'bg-mask' : 'bg-kapton')} />
+          <View
+            key={phase.id}
+            style={{ flex: Math.max(phase.total, 1) }}
+            className="h-1.5 overflow-hidden rounded-full bg-raised"
+          >
+            <View
+              style={{ width: `${ratio * 100}%` }}
+              className={cn('h-full rounded-full', complete ? 'bg-mask' : 'bg-kapton')}
+            />
           </View>
         );
       })}

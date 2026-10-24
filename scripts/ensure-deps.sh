@@ -8,7 +8,7 @@ RUNTIME=(expo-router expo-linking expo-constants expo-status-bar expo-system-ui
   react-native-safe-area-context react-native-screens
   @react-native-async-storage/async-storage
   expo-font @expo-google-fonts/barlow-semi-condensed @expo/vector-icons
-  nativewind react-native-reanimated react-native-worklets zustand babel-preset-expo)
+  nativewind react-native-reanimated react-native-worklets zustand babel-preset-expo react-native-keyboard-controller)
 
 missing=()
 for pkg in "${RUNTIME[@]}"; do

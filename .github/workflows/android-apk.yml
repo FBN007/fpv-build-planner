@@ -58,6 +58,9 @@ jobs:
           git commit -m "Update package.json and lockfile from CI" || exit 0
           git push
 
+      - name: Typecheck
+        run: bash scripts/ci-run.sh typecheck npx tsc --noEmit
+
       # Fast check (~1 min) that the JavaScript bundles before the long native build.
       - name: Bundle JavaScript
         run: bash scripts/ci-run.sh bundle npx expo export --platform android --output-dir /tmp/bundle-check

@@ -57,9 +57,7 @@ export function summarizeChecklist(project: Project): ChecklistSummary {
       ...phase.items
         .filter((i) => isItemVisible(i, project, covered))
         .map((i) => ({ id: i.id, title: i.title, critical: !!i.critical })),
-      ...customItems
-        .filter((c) => c.phaseId === phase.id)
-        .map((c) => ({ id: c.id, title: c.title, critical: false })),
+      ...customItems.filter((c) => c.phaseId === phase.id).map((c) => ({ id: c.id, title: c.title, critical: false })),
     ];
 
     let phaseDone = 0;

@@ -11,6 +11,7 @@ import { router, Stack } from 'expo-router';
 import { DarkTheme, ThemeProvider } from 'expo-router/react-navigation';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, Text, View } from 'react-native';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import palette from '@/theme/palette';
 
@@ -53,24 +54,30 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={navTheme}>
-      <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor: palette.carbon },
-          headerTintColor: palette.ink,
-          headerTitleStyle: { fontFamily: 'BarlowSemiCondensed_700Bold', fontSize: 20 },
-          headerShadowVisible: false,
-          contentStyle: { backgroundColor: palette.carbon },
-        }}
-      >
-        <Stack.Screen name="index" options={{ headerShown: false, title: 'Hangar' }} />
-        <Stack.Screen
-          name="project/new"
-          options={{ title: 'New build', presentation: 'modal', headerLeft: CancelButton }}
-        />
-        <Stack.Screen name="project/[id]/index" options={{ title: '' }} />
-      </Stack>
-    </ThemeProvider>
+    <KeyboardProvider>
+      <ThemeProvider value={navTheme}>
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerStyle: { backgroundColor: palette.carbon },
+            headerTintColor: palette.ink,
+            headerTitleStyle: { fontFamily: 'BarlowSemiCondensed_700Bold', fontSize: 20 },
+            headerShadowVisible: false,
+            contentStyle: { backgroundColor: palette.carbon },
+          }}
+        >
+          <Stack.Screen name="index" options={{ headerShown: false, title: 'Hangar' }} />
+          <Stack.Screen
+            name="project/new"
+            options={{ title: 'New build', presentation: 'modal', headerLeft: CancelButton }}
+          />
+          <Stack.Screen name="project/[id]/index" options={{ title: '' }} />
+          <Stack.Screen
+            name="project/[id]/part/[partId]"
+            options={{ title: '', presentation: 'modal', headerLeft: CancelButton }}
+          />
+        </Stack>
+      </ThemeProvider>
+    </KeyboardProvider>
   );
 }

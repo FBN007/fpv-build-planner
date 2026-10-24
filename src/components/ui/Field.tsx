@@ -1,19 +1,27 @@
 import { Text, TextInput, View, type TextInputProps } from 'react-native';
 
 import palette from '@/theme/palette';
+import { cn } from '@/utils/cn';
 
 interface Props extends Omit<TextInputProps, 'style' | 'className'> {
   label: string;
   /** Unit shown inside the input, e.g. "mm". */
   suffix?: string;
   hint?: string;
+  /** Replaces the hint and outlines the input in red. */
+  error?: string;
 }
 
-export function Field({ label, suffix, hint, ...inputProps }: Props) {
+export function Field({ label, suffix, hint, error, ...inputProps }: Props) {
   return (
     <View className="gap-2">
       <Text className="text-sm text-muted">{label}</Text>
-      <View className="flex-row items-center rounded-xl border border-line bg-raised px-4">
+      <View
+        className={cn(
+          'flex-row items-center rounded-xl border bg-raised px-4',
+          error ? 'border-signal' : 'border-line',
+        )}
+      >
         <TextInput
           accessibilityLabel={label}
           placeholderTextColor={palette.dim}
@@ -24,7 +32,11 @@ export function Field({ label, suffix, hint, ...inputProps }: Props) {
         />
         {suffix ? <Text className="ml-2 text-base text-dim">{suffix}</Text> : null}
       </View>
-      {hint ? <Text className="text-xs leading-5 text-dim">{hint}</Text> : null}
+      {error ? (
+        <Text className="text-xs leading-5 text-signal">{error}</Text>
+      ) : hint ? (
+        <Text className="text-xs leading-5 text-dim">{hint}</Text>
+      ) : null}
     </View>
   );
 }

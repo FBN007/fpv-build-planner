@@ -1,22 +1,60 @@
-// Placeholder so tapping a build card works. Replaced by the Component
-// Workspace in the next step.
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { Text, View } from 'react-native';
+import { useCallback, useMemo } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { Readout } from '@/components/ui/Readout';
+import { Chip } from '@/components/ui/Chip';
+import { BuildSummary } from '@/components/workspace/BuildSummary';
+import { CategorySection } from '@/components/workspace/CategorySection';
+import { categoriesFor, categoryLabel } from '@/catalog/categories';
+import { STATUS_LABEL } from '@/catalog/labels';
 import { useBuildStats } from '@/hooks/useBuildStats';
+import { coveredCategories } from '@/logic/coverage';
 import { describeProject } from '@/logic/factory';
+import type { BuildComponent, ComponentCategory, ProjectStatus } from '@/models/types';
 import { useProjectStore } from '@/store/projectStore';
 import { useHydrated } from '@/store/useHydrated';
-import { formatCost, weightParts } from '@/utils/format';
 
-export default function ProjectScreen() {
+const STATUSES: ProjectStatus[] = ['planning', 'building', 'setup', 'flying'];
+
+export default function WorkspaceScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const insets = useSafeAreaInsets();
   const hydrated = useHydrated();
   const project = useProjectStore((s) => (id ? s.projects[id] : undefined));
+  const updateProject = useProjectStore((s) => s.updateProject);
   const stats = useBuildStats(project);
+
+  const byCategory = useMemo(() => {
+    const map = new Map<ComponentCategory, BuildComponent[]>();
+    for (const c of project?.components ?? []) {
+      const list = map.get(c.category);
+      if (list) list.push(c);
+      else map.set(c.category, [c]);
+    }
+    return map;
+  }, [project?.components]);
+
+  // Categories covered by an all-in-one FC (ESC/receiver/VTX on the board).
+  const fcCovered = useMemo(() => {
+    if (!project) return new Set<ComponentCategory>();
+    const covered = coveredCategories(project);
+    const own = new Set(project.components.map((c) => c.category));
+    return new Set([...covered].filter((c) => !own.has(c)));
+  }, [project]);
+
+  const addPart = useCallback(
+    (category: ComponentCategory) =>
+      router.push({ pathname: '/project/[id]/part/[partId]', params: { id: id ?? '', partId: 'new', category } }),
+    [id],
+  );
+
+  const editPart = useCallback(
+    (part: BuildComponent) =>
+      router.push({ pathname: '/project/[id]/part/[partId]', params: { id: id ?? '', partId: part.id } }),
+    [id],
+  );
 
   if (!hydrated) return <View className="flex-1 bg-carbon" />;
 
@@ -31,18 +69,41 @@ export default function ProjectScreen() {
     );
   }
 
-  const weight = weightParts(stats.totals.auwG);
+  const required = new Set(stats.coverage.required);
 
   return (
-    <View className="flex-1 gap-4 bg-carbon p-4">
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 16, paddingBottom: insets.bottom + 32, gap: 24 }}>
       <Stack.Screen options={{ title: project.name }} />
-      <Text className="text-base text-muted">{describeProject(project)}</Text>
-      <Card className="flex-row gap-3 p-4">
-        <Readout value={weight.value} unit={weight.unit} label="All-up weight" empty={!stats.totals.hasWeights} />
-        <Readout value={formatCost(stats.totals.totalCost, project.currency)} label="Total cost" />
-        <Readout value={`${stats.coverage.filled}/${stats.coverage.required.length}`} label="Core parts" grow={false} />
-      </Card>
-      <Text className="text-sm leading-5 text-dim">The parts workspace for this build is the next screen we build.</Text>
-    </View>
+
+      <View className="gap-3">
+        <Text className="px-1 text-base text-muted">{describeProject(project)}</Text>
+        <BuildSummary project={project} stats={stats} />
+        <View className="flex-row flex-wrap gap-2">
+          {STATUSES.map((s) => (
+            <Chip
+              key={s}
+              label={STATUS_LABEL[s]}
+              selected={project.status === s}
+              onPress={() => updateProject(project.id, { status: s })}
+            />
+          ))}
+        </View>
+      </View>
+
+      {categoriesFor(project.vehicleType).map((meta) => (
+        <CategorySection
+          key={meta.id}
+          meta={meta}
+          label={categoryLabel(meta.id, project.vehicleType)}
+          parts={byCategory.get(meta.id) ?? []}
+          vehicle={project.vehicleType}
+          currency={project.currency}
+          required={required.has(meta.id)}
+          coveredByFc={fcCovered.has(meta.id)}
+          onAdd={addPart}
+          onEdit={editPart}
+        />
+      ))}
+    </ScrollView>
   );
 }

@@ -93,15 +93,29 @@ export default function DashboardScreen() {
         keyExtractor={(p) => p.id}
         renderItem={({ item }) => <ProjectCard project={item} onPress={openProject} onLongPress={openActions} />}
         ItemSeparatorComponent={Separator}
-        contentContainerStyle={{ paddingTop: insets.top + 16, paddingBottom: insets.bottom + 104, paddingHorizontal: 16 }}
+        contentContainerStyle={{
+          paddingTop: insets.top + 16,
+          paddingBottom: insets.bottom + 104,
+          paddingHorizontal: 16,
+        }}
         ListHeaderComponent={
           <View className="mb-5 px-1">
             <Text className="font-display-bold text-4xl text-ink">Hangar</Text>
             <Text className="mt-0.5 text-base text-muted">{summary}</Text>
             {showFilter ? (
               <View className="mt-4 flex-row gap-2">
-                <Chip label="All" count={sorted.length} selected={activeFilter === 'all'} onPress={() => setFilter('all')} />
-                <Chip label="Quads" count={counts.quad} selected={activeFilter === 'quad'} onPress={() => setFilter('quad')} />
+                <Chip
+                  label="All"
+                  count={sorted.length}
+                  selected={activeFilter === 'all'}
+                  onPress={() => setFilter('all')}
+                />
+                <Chip
+                  label="Quads"
+                  count={counts.quad}
+                  selected={activeFilter === 'quad'}
+                  onPress={() => setFilter('quad')}
+                />
                 <Chip
                   label="Fixed-wings"
                   count={counts.wing}

@@ -22,7 +22,8 @@ export const fixedWingChecklist: ChecklistTemplate = {
         {
           id: 'fw-servo-center',
           title: 'Centre the servos electronically before fitting horns',
-          detail: 'Power the servos through the FC or a servo tester and let them settle at neutral first. Horns go on at 90° to the arm.',
+          detail:
+            'Power the servos through the FC or a servo tester and let them settle at neutral first. Horns go on at 90° to the arm.',
           critical: true,
         },
       ],
@@ -34,7 +35,8 @@ export const fixedWingChecklist: ChecklistTemplate = {
         {
           id: 'fw-glue-wings',
           title: 'Glue the wing halves and spar',
-          detail: 'Use foam-safe glue: low-temp hot glue, foam-safe CA, or epoxy for the spar. Regular CA melts EPS foam.',
+          detail:
+            'Use foam-safe glue: low-temp hot glue, foam-safe CA, or epoxy for the spar. Regular CA melts EPS foam.',
         },
         {
           id: 'fw-tail',
@@ -153,7 +155,8 @@ export const fixedWingChecklist: ChecklistTemplate = {
         {
           id: 'fw-stab-direction',
           title: 'Check stabilisation directions in angle mode',
-          detail: 'Tilt the wing by hand: surfaces must push it back to level. Reversed stabilisation is the most common cause of maiden crashes.',
+          detail:
+            'Tilt the wing by hand: surfaces must push it back to level. Reversed stabilisation is the most common cause of maiden crashes.',
           critical: true,
         },
         {

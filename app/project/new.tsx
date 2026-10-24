@@ -1,6 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState, type ReactNode } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/ui/Button';
@@ -90,9 +91,9 @@ export default function NewProjectScreen() {
   };
 
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       style={{ flex: 1, backgroundColor: palette.carbon }}
-      automaticallyAdjustKeyboardInsets
+      bottomOffset={24}
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{ padding: 16, paddingBottom: insets.bottom + 32, gap: 28 }}
     >
@@ -217,7 +218,7 @@ export default function NewProjectScreen() {
       </Section>
 
       <Button label="Create build" onPress={submit} disabled={!canCreate} block />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
 

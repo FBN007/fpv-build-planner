@@ -74,11 +74,7 @@ function ProjectCardBase({ project, onPress, onLongPress }: Props) {
             }
             empty={project.components.length === 0}
           />
-          <Readout
-            value={`${coverage.filled}/${coverage.required.length}`}
-            label="Core parts"
-            grow={false}
-          />
+          <Readout value={`${coverage.filled}/${coverage.required.length}`} label="Core parts" grow={false} />
         </View>
 
         <View className="mt-4 gap-2">

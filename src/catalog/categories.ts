@@ -17,11 +17,23 @@ export interface CategoryMeta {
 
 // Order here is the order categories appear in the workspace.
 export const CATEGORIES: CategoryMeta[] = [
-  { id: 'frame', label: 'Frame', labelFor: { fixed_wing: 'Foam kit' }, icon: 'vector-square', requiredFor: ['quad', 'fixed_wing'] },
+  {
+    id: 'frame',
+    label: 'Frame',
+    labelFor: { fixed_wing: 'Foam kit' },
+    icon: 'vector-square',
+    requiredFor: ['quad', 'fixed_wing'],
+  },
   { id: 'fc', label: 'Flight controller', icon: 'chip', requiredFor: ['quad', 'fixed_wing'] },
   { id: 'esc', label: 'ESC', icon: 'flash-outline', requiredFor: ['quad', 'fixed_wing'] },
   { id: 'motor', label: 'Motors', labelFor: { fixed_wing: 'Motor' }, icon: 'fan', requiredFor: ['quad', 'fixed_wing'] },
-  { id: 'prop', label: 'Propellers', labelFor: { fixed_wing: 'Propeller' }, icon: 'rotate-3d-variant', requiredFor: ['quad', 'fixed_wing'] },
+  {
+    id: 'prop',
+    label: 'Propellers',
+    labelFor: { fixed_wing: 'Propeller' },
+    icon: 'rotate-3d-variant',
+    requiredFor: ['quad', 'fixed_wing'],
+  },
   { id: 'servo', label: 'Servos', icon: 'axis-arrow', requiredFor: ['fixed_wing'] },
   { id: 'vtx', label: 'Video transmitter', icon: 'access-point', requiredFor: ['quad', 'fixed_wing'] },
   { id: 'camera', label: 'Camera', icon: 'camera-outline', requiredFor: ['quad', 'fixed_wing'] },

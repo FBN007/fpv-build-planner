@@ -12,7 +12,8 @@ export const quadChecklist: ChecklistTemplate = {
         {
           id: 'q-inventory',
           title: 'Lay out every part and check it against the plan',
-          detail: 'Count motor screws, grommets, standoffs and pigtails before you start. Missing a 3 mm screw stops a build cold.',
+          detail:
+            'Count motor screws, grommets, standoffs and pigtails before you start. Missing a 3 mm screw stops a build cold.',
         },
         {
           id: 'q-flash-fc',
@@ -45,12 +46,14 @@ export const quadChecklist: ChecklistTemplate = {
         {
           id: 'q-solder-motors',
           title: 'Solder motor wires to the ESC',
-          detail: 'Tin pads and wires first, keep joints shiny and wires short. Wire order only affects direction, which you fix in software.',
+          detail:
+            'Tin pads and wires first, keep joints shiny and wires short. Wire order only affects direction, which you fix in software.',
         },
         {
           id: 'q-battery-lead',
           title: 'Solder the battery lead and a low-ESR capacitor',
-          detail: 'The capacitor across the ESC power pads absorbs voltage spikes that kill ESCs and add video noise. Double-check polarity.',
+          detail:
+            'The capacitor across the ESC power pads absorbs voltage spikes that kill ESCs and add video noise. Double-check polarity.',
           critical: true,
         },
         {
@@ -66,7 +69,8 @@ export const quadChecklist: ChecklistTemplate = {
         {
           id: 'q-wire-vtx',
           title: 'Wire the video transmitter',
-          detail: 'Power from the pad that matches the VTX input range, plus the SmartAudio, Tramp or MSP line to a UART.',
+          detail:
+            'Power from the pad that matches the VTX input range, plus the SmartAudio, Tramp or MSP line to a UART.',
         },
         {
           id: 'q-camera',
@@ -106,18 +110,21 @@ export const quadChecklist: ChecklistTemplate = {
         {
           id: 'q-ap-serial',
           title: 'Set SERIALx_PROTOCOL for the receiver, VTX and GPS',
-          detail: 'Receiver UART as RCIN (23), GPS as GPS (5), DJI/Walksnail OSD as DisplayPort (42). Reboot after changes.',
+          detail:
+            'Receiver UART as RCIN (23), GPS as GPS (5), DJI/Walksnail OSD as DisplayPort (42). Reboot after changes.',
           when: { firmware: ['ardupilot'] },
         },
         {
           id: 'q-bind',
           title: 'Bind the receiver and check the channel map',
-          detail: 'Use the same binding phrase on radio and receiver. Sticks should move the right bars in the receiver tab.',
+          detail:
+            'Use the same binding phrase on radio and receiver. Sticks should move the right bars in the receiver tab.',
         },
         {
           id: 'q-orientation',
           title: 'Match board orientation to how the FC is mounted',
-          detail: 'Tilt the quad by hand: the 3D model must follow exactly. A wrong orientation flips the quad on arming.',
+          detail:
+            'Tilt the quad by hand: the 3D model must follow exactly. A wrong orientation flips the quad on arming.',
           critical: true,
         },
         {
@@ -127,7 +134,8 @@ export const quadChecklist: ChecklistTemplate = {
         {
           id: 'q-motor-order',
           title: 'Verify motor order and spin direction, props off',
-          detail: 'Spin each motor individually and compare against the firmware’s motor diagram. Fix direction in software, not by resoldering.',
+          detail:
+            'Spin each motor individually and compare against the firmware’s motor diagram. Fix direction in software, not by resoldering.',
           critical: true,
         },
         {
@@ -150,7 +158,8 @@ export const quadChecklist: ChecklistTemplate = {
         {
           id: 'q-rth',
           title: 'Configure return-to-home',
-          detail: 'GPS Rescue in Betaflight, RTH in INAV, RTL in ArduPilot. Check the minimum satellite count and climb height.',
+          detail:
+            'GPS Rescue in Betaflight, RTH in INAV, RTL in ArduPilot. Check the minimum satellite count and climb height.',
           when: { hasCategory: 'gps' },
         },
         {

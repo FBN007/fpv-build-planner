@@ -47,8 +47,7 @@ export function computeTotals(project: Project): BuildTotals {
   }
 
   const { mode, value } = project.weightOverhead;
-  const overheadG =
-    partsWeightG === 0 ? 0 : mode === 'percent' ? (partsWeightG * safe(value)) / 100 : safe(value);
+  const overheadG = partsWeightG === 0 ? 0 : mode === 'percent' ? (partsWeightG * safe(value)) / 100 : safe(value);
 
   const dryWeightG = partsWeightG + overheadG;
   const auwG = dryWeightG + batteryWeightG;
